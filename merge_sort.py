@@ -1,5 +1,6 @@
 def merge_sort(list_, key=None, reverse=None):
-   
+    '''
+    # 方法1
     if len(list_) <= 1:
         return list_
     def merge(left,right):
@@ -20,6 +21,7 @@ def merge_sort(list_, key=None, reverse=None):
     right = merge_sort(list_[num:])
     return merge(left, right)
     '''
+    # 方法2
     def merge(head, tail):
         if head >= tail:
             return
@@ -28,18 +30,25 @@ def merge_sort(list_, key=None, reverse=None):
         merge(mid + 1, tail)
 
         temp = []
-        left = list_[head: mid + 1][:]
-        right = list_[mid + 1: tail + 1][:]
+        left = list_[head: mid + 1]
+        right = list_[mid + 1: tail + 1]
         
+        # eval 效率不高
+        # while left and right:
+            #obj = 'left' if left[0] <= right[0] else 'right'
+            #temp.append(eval(obj).pop(0))
+            
         while left and right:
-            obj = 'left' if left[0] <= right[0] else 'right'
-            temp.append(eval(obj).pop(0))
+            if left[0] <= right[0]:
+                temp.append(left.pop(0))
+            else:
+                temp.append(right.pop(0))
         temp += left + right
 
         list_[head: tail + 1] = temp
     merge(0, len(list_) + 1)
     return list_
-'''
+
 
 if __name__ == '__main__':
     pass
